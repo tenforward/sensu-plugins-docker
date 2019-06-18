@@ -6,6 +6,9 @@ Which is based on [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
 
+### Breaking Change
+- Update `sensu-plugin` version from `2.x` to `'>= 2', '< 5'` for Sensu Go enablement.
+
 ## [3.2.0] - 2018-11-22
 ### Fixed
  - metrics-docker-stats.rb: fix #16 -n option causes metrics-docker-stats.rb to fail, in case containers are linked together
