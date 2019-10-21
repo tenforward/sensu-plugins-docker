@@ -10,12 +10,11 @@ rvm:
 notifications:
   email:
     recipients:
-    - sensu-plugin@sensu-plugins.io
+    - jacobmw@uber.com
     on_success: change
     on_failure: always
 script:
-- bundle exec rake quick
-- bundle exec rake kitchen:ruby-`echo $TRAVIS_RUBY_VERSION | sed -e "s/\.//g"`-debian-8
+- bundle exec rake default
 - gem build sensu-plugins-docker.gemspec
 - gem install sensu-plugins-docker-*.gem
 before_deploy:
@@ -23,7 +22,7 @@ before_deploy:
 deploy:
 - provider: rubygems
   api_key:
-    secure: Xx+9z5uHC/rDjklTV7nSE8+7SxDh+/EzE3dt1QjutCtMYM7DK+gtleffv+irF02nUc5wbOCn61xnaLhqljyYdSbtOSXqURRQGkQF9eg/IVMaHMVZHQ6SHktrKkUyX3ZW39WKgBiKaSGs/Z9ulCWp13q1GToCEABLZTX6SDqCiyU=
+    secure: apocRGl3AyDyoKe0DfE8D9Cwcue7sW31US90bDpWJ6aAa2LGYiee+lusIRqp2IF2LDES8MqvyLV+Fxw6w5Cwzy6zmTIXSjwfQb0uMtjLNZMMJegxFx5ZtRwVDHJnMmrD5XVUJSfUPzjfk3im0iBGJpiHqusMbLbiNZBQO/EZspDUjhUL5C8X/lnfWGwmm9xCTaJYPDK4Am80n9hiEDTIQIHBvnQNspPIDby4LGiS44cMIp16/DvegxkFJ+A8WOsYX3DAUiajNI3WfjLqXaxdpEFPplGN19Lm5NSo9DZah6OZUjbasYQzNIZpO+0QMAYBCV/pDtWEOF/pUsiFqCnTPgzt2mxBpaGdqez+F9SNyVmnwqIe44G7yT3h4B5uMWkaixTnA2yLceNG0kHiSaj650HtHdulMC4si0V/6UQMyKXe0OEYJmA6UY5RbSNArpfCdFucZzC1xyOZPDY9v/bIc3e5/RQA6LRHH1EEVf8t6Ntp71tR5RC3Wpx/LpdlSXl6UuXTSWaQqunBTaMRDOV/brHyoTTaXqD6gbFizIBJhpBW/En8aY8bg36ZRmUPTFD92ZnVZr1Q6PWLCYMKMHxSvAHit+4zyz/sJ+FYgj67bXDJpTM4NpAUDbYhZkPNRl2flSCgG9LTyHQ2cpS5CCKcHNiU7Wp/2ztNZswzkR9kMmI=
   gem: sensu-plugins-docker
   on:
     tags: true
@@ -36,4 +35,4 @@ deploy:
   on:
     tags: true
     all_branches: true
-    rvm: 2.4.1  
+    rvm: 2.4.1
