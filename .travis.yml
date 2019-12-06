@@ -29,7 +29,7 @@ deploy:
     tags: true
     all_branches: true
     rvm: 2.4.1
-    repo: sensu-plugins/sensu-plugins-docker
+    repo: occamsRZR/sensu-plugins-docker
 - provider: script
   script: bonsai/ruby-runtime/travis-build-ruby-plugin-assets.sh sensu-plugins-docker
   skip_cleanup: true
