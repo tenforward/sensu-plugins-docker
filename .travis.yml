@@ -15,25 +15,27 @@ notifications:
     on_failure: always
 script:
 - bundle exec rake quick
-- #bundle exec rake kitchen:ruby-`echo $TRAVIS_RUBY_VERSION | sed -e "s/\.//g"`-debian-8
+- 
 - gem build sensu-plugins-docker.gemspec
 - gem install sensu-plugins-docker-*.gem
 before_deploy:
-- bash -c "[ ! -d bonsai/ ] && git clone https://github.com/sensu/sensu-go-bonsai-asset.git bonsai || echo 'bonsai/ exists, skipping git clone'"
+- bash -c "[ ! -d bonsai/ ] && git clone https://github.com/sensu/sensu-go-bonsai-asset.git
+  bonsai || echo 'bonsai/ exists, skipping git clone'"
 deploy:
-- provider: rubygems
-  api_key:
-    secure: Xx+9z5uHC/rDjklTV7nSE8+7SxDh+/EzE3dt1QjutCtMYM7DK+gtleffv+irF02nUc5wbOCn61xnaLhqljyYdSbtOSXqURRQGkQF9eg/IVMaHMVZHQ6SHktrKkUyX3ZW39WKgBiKaSGs/Z9ulCWp13q1GToCEABLZTX6SDqCiyU=
-  gem: sensu-plugins-docker
-  on:
-    tags: true
-    all_branches: true
-    rvm: 2.4.1
-    repo: occamsRZR/sensu-plugins-docker
-- provider: script
-  script: bonsai/ruby-runtime/travis-build-ruby-plugin-assets.sh sensu-plugins-docker
-  skip_cleanup: true
-  on:
-    tags: true
-    all_branches: true
-    rvm: 2.4.1  
+  matrix:
+  - provider: rubygems
+    api_key:
+      secure: TXxkfg5RGBYfH15xs/WuWbQKTR3zLsjwrUyvdwJEZGQnlbzUcE6G9G0qoMMdYQygVPBye8rCwV6mbTGGMfkNmEtK88V2wwk4qbq1FEg87MUuti48heHIAzRdxWQIP8KbYic1WvFOgzRfZ0J9I5IwekE1CgmCxykEzsQU44ymHI9lM5hYR+7yv7UAErhepkL31z5asQQXcWjNrB0/RmQ/gmZ5wcc1cphOv9XGpaaDTokwML0t7GxqI0pfBTLLnBKrCMOzYC7ZYSykUVSaz5mmmAlekx5grGX6MP29n4lb+4FU6fzGWF2kaeI3s+ozk+e8yzXCj6BWiobEnS1vGvqSlkKdXl4IlDcoXT+7+UPUmncf7ZFXRUCbtklhpIQPO8FnlCe/3547+HjKBWYMKvHNdv5/5osz5FWUex94KMdjjr7sxRa+nPrqh1KWXmy70mL1WCfihB7DntxcGfHJ+ytPQP6v8/nt34HFhaDToqjMFSRLS7u7PcWvV3E/1vAFXAzvAUWzZ6ijNR079tpt4xopBq+N//6gzDtNXZIYwcyOAtqBQ1c6E0Zs4SdO1ae5nGhWIfOPeuf0ALqiCSS2/iRGAfEv1mOkJC1rc0ZzkMa5SotK4z56HP4CieMTK7lZkUpzgy7yhWd+nVVcs38qr5D/JHYhSOrIu6qb16iXTUKYj1s=
+    gem: sensu-plugins-docker
+    on:
+      tags: true
+      all_branches: true
+      rvm: 2.4.1
+      repo: occamsRZR/sensu-plugins-docker
+  - provider: script
+    script: bonsai/ruby-runtime/travis-build-ruby-plugin-assets.sh sensu-plugins-docker
+    skip_cleanup: true
+    on:
+      tags: true
+      all_branches: true
+      rvm: 2.4.1
