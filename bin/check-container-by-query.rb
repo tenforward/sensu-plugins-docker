@@ -38,8 +38,6 @@
 require 'sensu-plugin/check/cli'
 require 'sensu-plugins-docker/client_helpers'
 
-require 'pry'
-
 #
 # Check Docker Container
 #
