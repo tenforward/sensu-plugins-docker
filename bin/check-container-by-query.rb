@@ -52,7 +52,7 @@ class CheckDockerContainerByQuery < Sensu::Plugin::Check::CLI
   option :query,
          short: '-q CONTAINER',
          long: '--query-name CONTAINER',
-         description: "Regex of container name to query",
+         description: 'Regex of container name to query',
          required: true
 
   option :allowexited,
@@ -63,11 +63,11 @@ class CheckDockerContainerByQuery < Sensu::Plugin::Check::CLI
 
   def run
     @client = DockerApi.new(config[:docker_host])
-    path = "/containers/json"
+    path = '/containers/json'
     response = @client.call(path, false)
 
     body = parse_json(response)
-    container_names = body.map {|container| container["Names"]}.flatten
+    container_names = body.map { |container| container['Names'] }.flatten
     regex_query = Regexp.new(config[:query])
     if container_names.grep(regex_query).any?
       ok "Found a container with query #{config[:query]} running on #{@client.uri}."
